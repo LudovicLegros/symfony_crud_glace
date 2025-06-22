@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre nouvelle pizza!!{% endblock %}
+
+{% block body %}
+
+	{# Ternaire pour vérifier l'existance de la variable 'isModification' #}
+	<h1> {{ isModification ? 'Modifier une pizza' :  'Ajouter une pizza' }}</h1>
+
+	{{form_start(pizzaForm)}}
+	    {{form_widget(pizzaForm)}}
+	    <button>{{ isModification ? 'Modifier' :  'Ajouter' }}</button>
+	{{form_end(pizzaForm)}}
+{% endblock %}

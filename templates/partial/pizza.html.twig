@@ -1,0 +1,28 @@
+{% for pizza in pizzas %}
+<article>
+			<div>
+				<div class="main_article">
+					<h2>{{pizza.nom}}</h2>
+					<p><strong>Ingrédient spécial :</strong> {{pizza.secretingredient}}</p>
+					<p><strong>Type de pâtes :</strong>{{pizza.pate.label}}</p>
+					<p><strong>ingrédient :</strong>
+					{% for ingredient in pizza.ingredient %}
+						<span>{{ingredient.label}}</span>
+					{% endfor %}
+					</p>
+
+					<div class="btn_bloc">
+						<a href={{path('modify_pizza',{'id':pizza.id})}}>modifier</a>
+						<form method="POST" onsubmit="return confirm('Confirmer la suppression?')" action="{{ path('delete_pizza',{'id': pizza.id})}}">
+							<input type="hidden" name="_method" value="delete">
+							<input type="hidden" name="_token" value="{{csrf_token('SUP' ~ pizza.id)}}">
+							<button class="btn_suppr">Suppimer</button>
+						</form>
+					</div>
+				</div>
+				
+				<img src={{asset('images/upload/' ~ pizza.imageName )}} alt="Image de pizza">
+			</div>
+
+		</article>
+	{% endfor %}

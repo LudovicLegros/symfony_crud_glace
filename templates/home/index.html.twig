@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue SuR PizZABarjo la pizza des petits barjo
+{% endblock %}
+
+{% block body %}
+<h1>PiZzA BaRjo La PiZzErIa DeS PiZzAs ZaRbiS</h1>
+<p>Proposez vos pizzas et nous les ferons! </p>
+	{{ form_start(form, {'attr' :{'id': 'filter-form'}}) }}
+	{{ form_end(form) }}
+	<section id="pizzas">
+		{% include 'partial/pizza.html.twig' %}
+	</section>
+
+{% endblock %}
