@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre nouvelle glace!!{% endblock %}
+
+{% block body %}
+
+	{# Ternaire pour vérifier l'existance de la variable 'isModification' #}
+	<h1> {{ isModification ? 'Modifier une glace' :  'Ajouter une glace' }}</h1>
+
+	{{form_start(glaceForm)}}
+	    {{form_widget(glaceForm)}}
+	    <button>{{ isModification ? 'Modifier' :  'Ajouter' }}</button>
+	{{form_end(glaceForm)}}
+{% endblock %}

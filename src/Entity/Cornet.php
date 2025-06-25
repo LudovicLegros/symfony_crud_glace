@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\PateRepository;
+use App\Repository\CornetRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PateRepository::class)]
-class Pate
+#[ORM\Entity(repositoryClass: CornetRepository::class)]
+class Cornet
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

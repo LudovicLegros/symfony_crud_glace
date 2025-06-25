@@ -2,37 +2,37 @@
 
 namespace App\Controller;
 
-use App\Entity\Pizza;
-use App\Form\PizzaType;
+use App\Entity\Glace;
+use App\Form\GlaceType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class PizzaController extends AbstractController
+class GlaceController extends AbstractController
 {
-    #[Route('/modifier_pizza/{id}', name: 'modify_pizza')]
-    #[Route('/pizza', name: 'add_pizza')]
-    public function index(?Pizza $pizza, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/modifier_glace/{id}', name: 'modify_glace')]
+    #[Route('/glace', name: 'add_glace')]
+    public function index(?Glace $glace, Request $request, EntityManagerInterface $entityManager): Response
     {
         // Vérification si l'objet existe via l'injection de dependance
         // Si injection de dependance = On est en Modification
         // Sinon, on est un Creation et on créé l'objet
-        if(!$pizza){
-            $pizza = new Pizza;
+        if(!$glace){
+            $glace = new Glace;
         }
         
 
         // Récupération du formulaire et association avec l'objet
-        $form = $this->createForm(PizzaType::class,$pizza);
+        $form = $this->createForm(GlaceType::class,$glace);
 
         // Récupération des données POST du formulaire
         $form->handleRequest($request);
         // Vérification si le formulaire est soumis et Valide
         if($form->isSubmitted() && $form->isValid()){
             // Persistance des données
-            $entityManager->persist($pizza);
+            $entityManager->persist($glace);
             // Envoi en BDD
             $entityManager->flush();
 
@@ -40,20 +40,20 @@ class PizzaController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('pizza/addupdate.html.twig', [
-            'pizzaForm' => $form->createView(), //envoie du formulaire en VUE
-            'isModification' => $pizza->getId() !== null //Envoie d'un variable pour définir si on est en Modif ou Créa
+        return $this->render('glace/addupdate.html.twig', [
+            'glaceForm' => $form->createView(), //envoie du formulaire en VUE
+            'isModification' => $glace->getId() !== null //Envoie d'un variable pour définir si on est en Modif ou Créa
         ]);
     }
 
-    #[Route('/pizza/remove/{id}', name: 'delete_pizza')]
-    public function remove(Pizza $pizza, Request $request, EntityManagerInterface $entityManager)
+    #[Route('/glace/remove/{id}', name: 'delete_glace')]
+    public function remove(Glace $glace, Request $request, EntityManagerInterface $entityManager)
     {
         
         
 
-        if($this->isCsrfTokenValid('SUP'.$pizza->getId(),$request->get('_token'))){
-            $entityManager->remove($pizza);
+        if($this->isCsrfTokenValid('SUP'.$glace->getId(),$request->get('_token'))){
+            $entityManager->remove($glace);
             $entityManager->flush();
             $this->addFlash('success','La suppression à été effectuée');
             return $this->redirectToRoute('app_home');

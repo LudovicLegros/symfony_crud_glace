@@ -2,9 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Pate;
-use App\Entity\Pizza;
-use App\Entity\Ingredient;
+use App\Entity\Glace;
+use App\Entity\Cornet;
+use App\Entity\Topping;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -12,21 +12,21 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class PizzaType extends AbstractType
+class GlaceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('nom')
             ->add('secretIngredient')
-            ->add('ingredient', EntityType::class, [ //Champ pour ManyToMany
-                    'class' => Ingredient::class, //Connexion du champ avec l'entité concerné
+            ->add('topping', EntityType::class, [ //Champ pour ManyToMany
+                    'class' => Topping::class, //Connexion du champ avec l'entité concerné
                     'choice_label' => 'label',
                     'multiple' => true, //Création de checkbox
                     'expanded' => true,
             ])
-            ->add('pate', EntityType::class, [
-                'class' => Pate::class,
+            ->add('cornet', EntityType::class, [
+                'class' => Cornet::class,
                 'choice_label' => 'label',
             ])
             ->add('imageFile', FileType::class,[ //Champ de fichier
@@ -49,7 +49,7 @@ class PizzaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Pizza::class,
+            'data_class' => Glace::class,
         ]);
     }
 }

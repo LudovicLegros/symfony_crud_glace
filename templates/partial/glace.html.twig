@@ -1,0 +1,28 @@
+{% for glace in glaces %}
+<article>
+			<div>
+				<div class="main_article">
+					<h2>{{glace.nom}}</h2>
+					<p><strong>Ingrédient spécial :</strong> {{glace.secretingredient}}</p>
+					<p><strong>Type de pâtes :</strong>{{glace.cornet.label}}</p>
+					<p><strong>ingrédient :</strong>
+					{% for topping in glace.topping %}
+						<span>{{topping.label}}</span>
+					{% endfor %}
+					</p>
+
+					<div class="btn_bloc">
+						<a href={{path('modify_glace',{'id':glace.id})}}>modifier</a>
+						<form method="POST" onsubmit="return confirm('Confirmer la suppression?')" action="{{ path('delete_glace',{'id': glace.id})}}">
+							<input type="hidden" name="_method" value="delete">
+							<input type="hidden" name="_token" value="{{csrf_token('SUP' ~ glace.id)}}">
+							<button class="btn_suppr">Suppimer</button>
+						</form>
+					</div>
+				</div>
+				
+				<img src={{asset('images/upload/' ~ glace.imageName )}} alt="Image de glace">
+			</div>
+
+		</article>
+	{% endfor %}

@@ -1,7 +1,6 @@
 @use "../abstract/variable.scss" as v;
 @use "../abstract/mixin.scss" as m;
-@import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Quicksand:wght@300..700&display=swap');
 
 
 *{
@@ -10,6 +9,29 @@
     list-style: none;
     text-decoration: none;
 }
+
+
+
+nav{
+    background-color: v.$btnColor;
+    border-bottom: 1px dotted darken(v.$btnColor,20%);
+
+    a{
+        color:v.$decoColor;
+        font-weight: 900;
+    }
+
+    ul{
+        @include m.flex;
+        padding:2rem 0;
+
+        li{
+            margin:0 1rem;
+        }
+    }
+}
+
+
 
 .btn_suppr{
     all: unset;
@@ -20,7 +42,9 @@
 body{
     background-color: v.$bgColor;
     font-family: v.$textFont;
-    
+    background-image: url('~/public/images/white-wave.png');
+    background-size:3%;
+    // background-repeat: repeat;
 }
 
 h1{

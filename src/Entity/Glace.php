@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\PizzaRepository;
+use App\Repository\GlaceRepository;
 
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
@@ -13,8 +13,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[Vich\Uploadable]
-#[ORM\Entity(repositoryClass: PizzaRepository::class)]
-class Pizza
+#[ORM\Entity(repositoryClass: GlaceRepository::class)]
+class Glace
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -41,19 +41,19 @@ class Pizza
 
 
     /**
-     * @var Collection<int, Ingredient>
+     * @var Collection<int, Topping>
      */
-    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'pizzas')]
-    private Collection $ingredient;
+    #[ORM\ManyToMany(targetEntity: Topping::class, inversedBy: 'glaces')]
+    private Collection $topping;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Pate $pate = null;
+    private ?Cornet $cornet = null;
     
 
     public function __construct()
     {
-        $this->ingredient = new ArrayCollection();
+        $this->topping = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -86,37 +86,37 @@ class Pizza
     }
 
     /**
-     * @return Collection<int, Ingredient>
+     * @return Collection<int, Topping>
      */
-    public function getIngredient(): Collection
+    public function getTopping(): Collection
     {
-        return $this->ingredient;
+        return $this->topping;
     }
 
-    public function addIngredient(Ingredient $ingredient): static
+    public function addTopping(Topping $topping): static
     {
-        if (!$this->ingredient->contains($ingredient)) {
-            $this->ingredient->add($ingredient);
+        if (!$this->topping->contains($topping)) {
+            $this->topping->add($topping);
         }
 
         return $this;
     }
 
-    public function removeIngredient(Ingredient $ingredient): static
+    public function removeTopping(Topping $topping): static
     {
-        $this->ingredient->removeElement($ingredient);
+        $this->topping->removeElement($topping);
 
         return $this;
     }
 
-    public function getPate(): ?Pate
+    public function getCornet(): ?Cornet
     {
-        return $this->pate;
+        return $this->cornet;
     }
 
-    public function setPate(?Pate $pate): static
+    public function setCornet(?Cornet $cornet): static
     {
-        $this->pate = $pate;
+        $this->cornet = $cornet;
 
         return $this;
     }

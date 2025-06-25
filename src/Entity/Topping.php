@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\IngredientRepository;
+use App\Repository\ToppingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: IngredientRepository::class)]
-class Ingredient
+#[ORM\Entity(repositoryClass: ToppingRepository::class)]
+class Topping
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,14 +19,14 @@ class Ingredient
     private ?string $label = null;
 
     /**
-     * @var Collection<int, Pizza>
+     * @var Collection<int, Glace>
      */
-    #[ORM\ManyToMany(targetEntity: Pizza::class, mappedBy: 'ingredient')]
-    private Collection $pizzas;
+    #[ORM\ManyToMany(targetEntity: Glace::class, mappedBy: 'topping')]
+    private Collection $glaces;
 
     public function __construct()
     {
-        $this->pizzas = new ArrayCollection();
+        $this->glaces = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -47,27 +47,27 @@ class Ingredient
     }
 
     /**
-     * @return Collection<int, Pizza>
+     * @return Collection<int, Glace>
      */
-    public function getPizzas(): Collection
+    public function getGlaces(): Collection
     {
-        return $this->pizzas;
+        return $this->glaces;
     }
 
-    public function addPizza(Pizza $pizza): static
+    public function addGlace(Glace $glace): static
     {
-        if (!$this->pizzas->contains($pizza)) {
-            $this->pizzas->add($pizza);
-            $pizza->addIngredient($this);
+        if (!$this->glaces->contains($glace)) {
+            $this->glaces->add($glace);
+            $glace->addTopping($this);
         }
 
         return $this;
     }
 
-    public function removePizza(Pizza $pizza): static
+    public function removeGlace(Glace $glace): static
     {
-        if ($this->pizzas->removeElement($pizza)) {
-            $pizza->removeIngredient($this);
+        if ($this->glaces->removeElement($glace)) {
+            $glace->removeTopping($this);
         }
 
         return $this;

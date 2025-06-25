@@ -2,22 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Pate;
+use App\Entity\Glace;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Pate>
+ * @extends ServiceEntityRepository<Glace>
  */
-class PateRepository extends ServiceEntityRepository
+class GlaceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Pate::class);
+        parent::__construct($registry, Glace::class);
     }
 
+    public function orderByName($order): array
+   {
+
+       return $this->createQueryBuilder('p')
+           ->orderBy('p.nom', $order)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    /**
-//     * @return Pate[] Returns an array of Pate objects
+//     * @return Glace[] Returns an array of Glace objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -31,11 +41,12 @@ class PateRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Pate
+//    public function findOneBySomeField($value): ?Glace
 //    {
 //        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
+//             ->leftJoin('p.pate','pa')
+//            ->andWhere('pa.label = :pikachu')
+//            ->setParameter('pikachu', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()
 //        ;

@@ -2,18 +2,18 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Pizza;
+use App\Entity\Glace;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class PizzaCrudController extends AbstractCrudController
+class GlaceCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Pizza::class;
+        return Glace::class;
     }
 
     
@@ -33,18 +33,28 @@ class PizzaCrudController extends AbstractCrudController
                 ->onlyOnIndex(),//On spécifie que ce champs sera uniquement pour l'affichage de l'image'
 
             //Relation ManyToOne
-            AssociationField::new('pate', 'la pate')
+            AssociationField::new('cornet', 'le cornet')
             ->setFormTypeOptions([
                 'choice_label'=>'label',
             ]),
 
             //Relation ManyToMany
-           AssociationField::new('ingredient', 'les ingrédients')
+           AssociationField::new('topping', 'les topping')
             ->setFormTypeOptions([
                 'by_reference'=>false,
                 'multiple'=>true,
                 'choice_label'=>'label'
-            ]),
+                //Affichage du many to many
+            ]) ->formatValue(function ($value, $entity) {
+                
+                    $labels = [];
+                    foreach ($value as $topping) {
+                        $labels[] = $topping->getLabel();
+                    }
+                    return implode(', ', $labels);
+           
+                return '';
+            }),
             
         ];
     }

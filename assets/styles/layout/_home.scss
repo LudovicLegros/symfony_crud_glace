@@ -1,18 +1,7 @@
 @use "../abstract/variable.scss" as v; 
 @use "../abstract/mixin.scss" as m; 
 
-nav{
-    background-color: v.$btnColor;
 
-    ul{
-        @include m.flex;
-        padding:2rem 0;
-
-        li{
-            margin:0 1rem;
-        }
-    }
-}
 
 article{
     margin:1rem 0;
@@ -20,6 +9,9 @@ article{
     width: 75vw;
     height: 200px;
     
+    p{
+        margin: 5px 0px
+    }
 
     >div{
         @include m.flex(row,space-around);
@@ -44,6 +36,13 @@ article{
         a,button{
             margin-right:1rem;
             color:v.$decoColor2;
+            font-weight: 900;
         }
     }
+}
+
+.main_article span{
+    background-color: v.$btnColor;
+    padding: 3px;
+    border-radius: 3px;
 }

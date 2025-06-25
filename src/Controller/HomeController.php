@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Form\PizzaFilterType;
-use App\Repository\PizzaRepository;
+use App\Form\GlaceFilterType;
+use App\Repository\GlaceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -12,35 +12,35 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(PizzaRepository $repository, Request $request): Response
+    public function index(GlaceRepository $repository, Request $request): Response
     {
 
-        $form = $this->createForm(PizzaFilterType::class);
+        $form = $this->createForm(GlaceFilterType::class);
         $form->handleRequest($request);
         $data = $form->getData();
 
         // dd($data); 
         if($form->isSubmitted() && $form->isValid()){  
-            $pizza = $repository->orderByName($data['order']);
+            $glace = $repository->orderByName($data['order']);
         }else{
-            $pizza = $repository->findAll();
+            $glace = $repository->findAll();
         }
         
         return $this->render('home/index.html.twig', [
-            'pizzas' => $pizza, //Envoie de la requête en VUE 
+            'glaces' => $glace, //Envoie de la requête en VUE 
             'form' => $form->createView(),
         ]);
     }
 
     #[Route('/filter', name: 'app_filter')]
-    public function filter(PizzaRepository $repository, Request $request): Response
+    public function filter(GlaceRepository $repository, Request $request): Response
     {
         $filters = $request->query->all();
         dd($filters);
-        $pizzas = $repository->findByFilters($filters);
+        $glaces = $repository->findByFilters($filters);
 
-        $html = $this->renderView('partial/pizza.html.twig', [
-            'pizzas' => $pizzas,
+        $html = $this->renderView('partial/glace.html.twig', [
+            'glaces' => $glaces,
         ]);
 
          // Retourne la réponse JSON

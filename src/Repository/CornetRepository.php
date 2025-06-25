@@ -2,32 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Pizza;
+use App\Entity\Cornet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Pizza>
+ * @extends ServiceEntityRepository<Cornet>
  */
-class PizzaRepository extends ServiceEntityRepository
+class CornetRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Pizza::class);
+        parent::__construct($registry, Cornet::class);
     }
 
-    public function orderByName($order): array
-   {
-
-       return $this->createQueryBuilder('p')
-           ->orderBy('p.nom', $order)
-           ->getQuery()
-           ->getResult()
-       ;
-   }
-
 //    /**
-//     * @return Pizza[] Returns an array of Pizza objects
+//     * @return Cornet[] Returns an array of Cornet objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -41,12 +31,11 @@ class PizzaRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Pizza
+//    public function findOneBySomeField($value): ?Cornet
 //    {
 //        return $this->createQueryBuilder('p')
-//             ->leftJoin('p.pate','pa')
-//            ->andWhere('pa.label = :pikachu')
-//            ->setParameter('pikachu', $value)
+//            ->andWhere('p.exampleField = :val')
+//            ->setParameter('val', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()
 //        ;

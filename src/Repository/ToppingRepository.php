@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Ingredient;
+use App\Entity\Topping;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Ingredient>
+ * @extends ServiceEntityRepository<Topping>
  */
-class IngredientRepository extends ServiceEntityRepository
+class ToppingRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Ingredient::class);
+        parent::__construct($registry, Topping::class);
     }
 
 //    /**
-//     * @return Ingredient[] Returns an array of Ingredient objects
+//     * @return Topping[] Returns an array of Topping objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -31,7 +31,7 @@ class IngredientRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Ingredient
+//    public function findOneBySomeField($value): ?Topping
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

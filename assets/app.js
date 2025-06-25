@@ -12,7 +12,7 @@ import './styles/app.scss';
 document.addEventListener('DOMContentLoaded', () => {
 
     const form = document.querySelector('#filter-form');
-    const resultsContainer = document.getElementById('pizzas');
+    const resultsContainer = document.getElementById('glaces');
 
     if(form){
         const submitForm = (event) => {
